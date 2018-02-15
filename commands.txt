@@ -1,0 +1,29 @@
+
+minishift openshift service <service-name> --url
+
+
+Adding fabric8-maven-plugin to the spring maven project
+=======================================================
+
+./mvnw io.fabric8:fabric8-maven-plugin:3.5.30:setup
+
+./mvnw clean fabric8:deploy
+
+
+Hello World
+===========
+
+curl $(minishift openshift service helloboot --url)/whereami
+
+Discovery
+=========
+curl $(minishift openshift service helloboot --url)/whereami
+
+Canary
+======
+curl $(minishift openshift service greeterboot --url)/hello
+
+LoadBalancing
+=============
+
+for i in {1..10}; do $(minishift openshift service greeterboot --url)/whereami; echo ""; done;
